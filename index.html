@@ -69,7 +69,7 @@
             z-index: 1;
         }
         .hero-content h1 {
-            font-size: clamp(2.5rem, 6vw, 5rem); /* Responsive font size */
+            font-size: clamp(2.5rem, 6vw, 5rem);
             font-weight: 700;
             color: #fff;
             text-shadow: 0 0 15px rgba(34, 167, 240, 0.5), 0 0 25px rgba(34, 167, 240, 0.3);
@@ -77,166 +77,162 @@
         }
         .hero-content p {
             font-family: 'Roboto Mono', monospace;
-            font-size: clamp(1rem, 2.5vw, 1.25rem);
+            font-size: clamp(0.9rem, 2.5vw, 1.25rem);
             color: var(--primary-color);
             max-width: 700px;
             margin: 1.5rem auto 2.5rem;
             opacity: 0.9;
+            line-height: 1.6;
         }
         @keyframes text-flicker {
             0%, 18%, 22%, 25%, 53%, 57%, 100% { text-shadow: 0 0 15px rgba(34, 167, 240, 0.5), 0 0 25px rgba(34, 167, 240, 0.3); }
             20%, 24%, 55% { text-shadow: none; }
         }
 
-        /* Navigation Bar */
+        /* Navigation Bar - Complete Redesign for Mobile */
         nav {
-            position: sticky;
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            z-index: 100;
+            z-index: 200;
             background-color: rgba(13, 17, 23, 0.95);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
             border-bottom: 1px solid var(--border-color);
             box-shadow: 0 2px 12px 0 rgba(34, 167, 240, 0.08);
-            height: 56px;
-            min-height: 56px;
         }
-        nav ul {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        nav ul li {
-            margin-bottom: 0;
-        }
-        @media (max-width: 768px) {
-            nav {
-                height: 52px;
-                min-height: 52px;
-            }
-            nav ul {
-                flex-direction: column;
-                gap: 0.25rem;
-            }
-            nav ul li {
-                width: 100%;
-                text-align: center;
-            }
-            .container {
-                padding-left: 0.5rem;
-                padding-right: 0.5rem;
-            }
-        }
-        @media (max-width: 480px) {
-            nav {
-                height: 48px;
-                min-height: 48px;
-            }
-            nav ul {
-                font-size: 0.95rem;
-                gap: 0.15rem;
-            }
-            .container {
-                padding-left: 0.25rem;
-                padding-right: 0.25rem;
-            }
-        }
-        /* Main Content */
-        main {
-            padding-top: 56px; /* Offset for fixed navbar */
-        }
-        @media (max-width: 768px) {
-            main {
-                padding-top: 52px;
-            }
-        }
-        @media (max-width: 480px) {
-            main {
-                padding-top: 48px;
-            }
-        }
-        /* Hero Section Responsive */
-        .hero-section {
-            height: 100vh;
-            min-height: 500px;
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
             padding: 0 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 60px;
         }
+
+        .nav-logo {
+            font-family: 'Roboto Mono', monospace;
+            font-weight: 600;
+            color: var(--accent-glow);
+            font-size: 1.1rem;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            gap: 2rem;
+        }
+
+        .nav-menu a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .nav-menu a:hover {
+            color: var(--accent-glow);
+        }
+
+        .nav-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 4px;
+        }
+
+        .nav-toggle span {
+            width: 25px;
+            height: 3px;
+            background-color: var(--primary-color);
+            transition: all 0.3s ease;
+        }
+
+        /* Mobile Navigation */
         @media (max-width: 768px) {
-            .hero-section {
-                height: 80vh;
-                min-height: 350px;
-                padding: 0 0.5rem;
+            .nav-menu {
+                position: fixed;
+                top: 60px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 60px);
+                background-color: rgba(13, 17, 23, 0.98);
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: center;
+                gap: 2rem;
+                padding-top: 3rem;
+                transition: left 0.3s ease;
             }
-            .hero-content h1 {
-                font-size: 2.2rem;
+
+            .nav-menu.active {
+                left: 0;
             }
-        }
-        @media (max-width: 480px) {
-            .hero-section {
-                height: 60vh;
-                min-height: 220px;
-                padding: 0 0.25rem;
+
+            .nav-menu a {
+                font-size: 1.1rem;
+                padding: 0.5rem 1rem;
             }
-            .hero-content h1 {
-                font-size: 1.5rem;
+
+            .nav-toggle {
+                display: flex;
             }
-            .hero-content p {
-                font-size: 0.95rem;
+
+            .nav-toggle.active span:nth-child(1) {
+                transform: rotate(45deg) translate(5px, 5px);
             }
-        }
-        /* Card Responsive */
-        .card {
-            background: var(--card-bg);
-            border-radius: 1rem;
-            padding: 2rem;
-            position: relative;
-            overflow: hidden;
-            border: 1px solid var(--border-color);
-            transition: transform 0.4s ease, box-shadow 0.4s ease;
-        }
-        @media (max-width: 768px) {
-            .card {
-                padding: 1.25rem;
+
+            .nav-toggle.active span:nth-child(2) {
+                opacity: 0;
             }
-        }
-        @media (max-width: 480px) {
-            .card {
-                padding: 0.75rem;
-            }
-        }
-        /* Timeline Responsive */
-        .timeline-item {
-            position: relative;
-            padding-left: 2.5rem;
-            border-left: 2px solid var(--border-color);
-        }
-        @media (max-width: 640px) {
-            .timeline-item {
-                padding-left: 1.25rem;
-            }
-            .timeline-marker {
-                left: -0.5rem;
-                width: 1rem;
-                height: 1rem;
-            }
-        }
-        /* Button Responsive */
-        .btn-fancy {
-            padding: 0.6rem 1.2rem;
-            font-size: 1rem;
-        }
-        @media (max-width: 480px) {
-            .btn-fancy {
-                padding: 0.5rem 0.8rem;
-                font-size: 0.95rem;
+
+            .nav-toggle.active span:nth-child(3) {
+                transform: rotate(-45deg) translate(7px, -6px);
             }
         }
 
-        /* Fancy Button */
+        /* Main Content Offset */
+        main {
+            padding-top: 60px;
+        }
+
+        /* Hero Section Responsive */
+        .hero-section {
+            height: calc(100vh - 60px);
+            min-height: 500px;
+            padding: 2rem 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .hero-section {
+                height: calc(100vh - 60px);
+                min-height: 400px;
+                padding: 1rem;
+            }
+            
+            .hero-content {
+                padding: 0 0.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-section {
+                min-height: 350px;
+                padding: 0.5rem;
+            }
+            
+            .hero-content p {
+                margin: 1rem auto 2rem;
+            }
+        }
+
+        /* Button Responsive */
         .btn-fancy {
             padding: 0.75rem 2rem;
             border-radius: 9999px;
@@ -246,7 +242,11 @@
             border: 2px solid var(--accent-glow);
             transition: all 0.3s ease;
             box-shadow: 0 0 15px rgba(34, 167, 240, 0.4);
+            text-decoration: none;
+            display: inline-block;
+            font-size: 1rem;
         }
+
         .btn-fancy:hover {
             background: transparent;
             color: var(--accent-glow);
@@ -254,15 +254,75 @@
             box-shadow: 0 0 25px rgba(34, 167, 240, 0.6);
         }
 
-        /* How It Works Section */
+        @media (max-width: 768px) {
+            .btn-fancy {
+                padding: 0.6rem 1.5rem;
+                font-size: 0.95rem;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: center;
+            }
+            
+            .hero-buttons .btn-fancy {
+                width: 200px;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .btn-fancy {
+                padding: 0.5rem 1.2rem;
+                font-size: 0.9rem;
+            }
+            
+            .hero-buttons .btn-fancy {
+                width: 180px;
+            }
+        }
+
+        /* Card Styling */
+        .card {
+            background: var(--card-bg);
+            border-radius: 1rem;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(34, 167, 240, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            .card {
+                padding: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .card {
+                padding: 1.25rem;
+            }
+        }
+
+        /* Timeline Styling */
         .timeline-item {
             position: relative;
-            padding-left: 2.5rem;
+            padding-left: 3rem;
             border-left: 2px solid var(--border-color);
+            margin-bottom: 2rem;
         }
+
         .timeline-item:last-child {
             border-left: 2px solid transparent;
         }
+
         .timeline-marker {
             position: absolute;
             left: -0.75rem;
@@ -275,6 +335,18 @@
             box-shadow: 0 0 10px rgba(34, 167, 240, 0.5);
         }
 
+        @media (max-width: 640px) {
+            .timeline-item {
+                padding-left: 2rem;
+            }
+            
+            .timeline-marker {
+                left: -0.5rem;
+                width: 1rem;
+                height: 1rem;
+            }
+        }
+
         /* Entrance Animations */
         .animate-on-scroll {
             opacity: 0;
@@ -285,11 +357,66 @@
             opacity: 1;
             transform: translateY(0);
         }
+
+        /* Section Spacing */
+        .section {
+            padding: 4rem 0;
+        }
+
+        @media (max-width: 768px) {
+            .section {
+                padding: 3rem 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .section {
+                padding: 2rem 0;
+            }
+        }
+
+        /* Grid Responsive */
+        .grid-responsive {
+            display: grid;
+            gap: 2rem;
+        }
+
+        @media (min-width: 640px) {
+            .grid-responsive {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .grid-responsive.lg-3 {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
     </style>
 </head>
 <body>
 
     <div id="scroll-progress"></div>
+
+    <!-- Navigation Bar -->
+    <nav>
+        <div class="nav-container">
+            <div class="nav-logo">RL-A2A</div>
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="#about-a2a">About</a></li>
+                <li><a href="#how-it-works">How It Works</a></li>
+                <li><a href="#applications">Applications</a></li>
+                <li><a href="#documentation">Docs</a></li>
+                <li><a href="#community">Community</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="nav-toggle" id="nav-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
 
     <!-- Hero Section -->
     <header class="hero-section">
@@ -297,34 +424,20 @@
         <div class="hero-content">
             <h1 class="text-white">RL-A2A Protocol</h1>
             <p>Deconstructing Complexity. Engineering Collaboration. Welcome to the Next Generation of Multi-Agent Reinforcement Learning.</p>
-            <div class="mt-8 flex justify-center gap-4">
+            <div class="hero-buttons mt-8 flex justify-center gap-4">
                 <a href="#about-a2a" class="btn-fancy">Discover</a>
-                <a href="https://github.com/KunjShah01/RL-A2A/wiki"  class="btn-fancy bg-transparent hover:bg-accent-glow hover:text-white">GitHub Wiki</a>
+                <a href="https://github.com/KunjShah01/RL-A2A/wiki" class="btn-fancy bg-transparent hover:bg-accent-glow hover:text-white">GitHub Wiki</a>
             </div>
         </div>
     </header>
 
-    <!-- Navigation Bar -->
-    <nav>
-        <div class="container mx-auto px-6">
-            <ul class="flex justify-center space-x-4 md:space-x-8 py-4 font-mono text-sm">
-                <li><a href="#about-a2a" class="hover:text-accent-glow transition-colors">About</a></li>
-                <li><a href="#how-it-works" class="hover:text-accent-glow transition-colors">How It Works</a></li>
-                <li><a href="#applications" class="hover:text-accent-glow transition-colors">Applications</a></li>
-                <li><a href="#documentation" class="hover:text-accent-glow transition-colors">Docs</a></li>
-                <li><a href="#community" class="hover:text-accent-glow transition-colors">Community</a></li>
-                <li><a href="#contact" class="hover:text-accent-glow transition-colors">Contact</a></li>
-            </ul>
-        </div>
-    </nav>
-
-    <main class="py-20 md:py-32">
-        <section id="about-a2a" class="container mx-auto px-6 mb-20 md:mb-32">
-            <div class="text-center mb-12 md:mb-16 animate-on-scroll">
+    <main>
+        <section id="about-a2a" class="section container mx-auto px-4">
+            <div class="text-center mb-16 animate-on-scroll">
                 <h2 class="text-3xl md:text-4xl font-bold text-white">The Core Protocol</h2>
                 <p class="mt-4 max-w-2xl mx-auto text-lg text-gray-400">RL-A2A is not just an algorithm; it's a foundational framework for intelligent agent interaction.</p>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="grid-responsive">
                 <div class="card animate-on-scroll">
                     <div class="card-content">
                         <h3 class="text-2xl font-bold text-white mb-4">Decentralized Learning</h3>
@@ -340,27 +453,27 @@
             </div>
         </section>
 
-        <section id="how-it-works" class="container mx-auto px-6 mb-20 md:mb-32">
-            <div class="text-center mb-12 md:mb-16 animate-on-scroll">
+        <section id="how-it-works" class="section container mx-auto px-4">
+            <div class="text-center mb-16 animate-on-scroll">
                 <h2 class="text-3xl md:text-4xl font-bold text-white">Operational Flow</h2>
                 <p class="mt-4 max-w-2xl mx-auto text-lg text-gray-400">A simplified look at the agent decision-making loop within the A2A framework.</p>
             </div>
             <div class="max-w-2xl mx-auto">
-                <div class="timeline-item pb-12 animate-on-scroll">
+                <div class="timeline-item animate-on-scroll">
                     <div class="timeline-marker"></div>
                     <div class="timeline-content">
                         <h3 class="text-xl font-bold text-white mb-2">1. Observe & Perceive</h3>
                         <p class="text-gray-400">Each agent observes its local state within the shared environment, including the states or actions of nearby agents.</p>
                     </div>
                 </div>
-                <div class="timeline-item pb-12 animate-on-scroll">
+                <div class="timeline-item animate-on-scroll">
                     <div class="timeline-marker"></div>
                     <div class="timeline-content">
                         <h3 class="text-xl font-bold text-white mb-2">2. Formulate Policy</h3>
                         <p class="text-gray-400">Based on its observations and long-term objective (reward), the agent's neural network formulates an action policy.</p>
                     </div>
                 </div>
-                <div class="timeline-item pb-12 animate-on-scroll">
+                <div class="timeline-item animate-on-scroll">
                     <div class="timeline-marker"></div>
                     <div class="timeline-content">
                         <h3 class="text-xl font-bold text-white mb-2">3. Act & Interact</h3>
@@ -377,12 +490,12 @@
             </div>
         </section>
 
-        <section id="applications" class="container mx-auto px-6 mb-20 md:mb-32">
-            <div class="text-center mb-12 md:mb-16 animate-on-scroll">
+        <section id="applications" class="section container mx-auto px-4">
+            <div class="text-center mb-16 animate-on-scroll">
                 <h2 class="text-3xl md:text-4xl font-bold text-white">Real-World Impact</h2>
                 <p class="mt-4 max-w-2xl mx-auto text-lg text-gray-400">From virtual worlds to physical automation, A2A is built for versatility.</p>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="grid-responsive lg-3">
                 <div class="card animate-on-scroll">
                     <div class="card-content">
                         <h3 class="text-2xl font-bold text-white mb-4">Robotic Swarms</h3>
@@ -404,17 +517,17 @@
             </div>
         </section>
 
-        <section id="documentation" class="container mx-auto px-6 mb-20 md:mb-32">
+        <section id="documentation" class="section container mx-auto px-4">
              <div class="card text-center animate-on-scroll">
                 <div class="card-content">
                     <h2 class="text-3xl md:text-4xl font-bold text-white">Ready to Build?</h2>
                     <p class="text-lg text-gray-400 max-w-2xl mx-auto my-6">Dive into our comprehensive documentation on GitHub. You'll find setup guides, API references, and example implementations to get you started.</p>
-                    <a href="https://github.com/KunjShah01/RL-A2A/wiki"  class="btn-fancy inline-block">Access the Wiki</a>
+                    <a href="https://github.com/KunjShah01/RL-A2A/wiki" class="btn-fancy inline-block">Access the Wiki</a>
                 </div>
             </div>
         </section>
         
-        <section id="community" class="text-center container mx-auto px-6 mb-20 md:mb-32">
+        <section id="community" class="section text-center container mx-auto px-4">
             <div class="animate-on-scroll">
                 <h2 class="text-3xl md:text-4xl font-bold text-white">Join the Conversation</h2>
                 <p class="text-lg text-gray-400 max-w-2xl mx-auto my-6">Connect with developers, contribute to the project, and help shape the future of decentralized AI.</p>
@@ -422,7 +535,7 @@
             </div>
         </section>
 
-        <section id="contact" class="text-center container mx-auto px-6">
+        <section id="contact" class="section text-center container mx-auto px-4">
             <div class="card animate-on-scroll">
                 <div class="card-content">
                     <h2 class="text-3xl md:text-4xl font-bold text-white">Contact Me</h2>
@@ -441,23 +554,47 @@
 
     </main>
     
-    <footer class="mt-20 md:mt-32 border-t border-[var(--border-color)] py-8">
-        <div class="container mx-auto px-6 text-center text-gray-500">
+    <footer class="mt-20 border-t border-[var(--border-color)] py-8">
+        <div class="container mx-auto px-4 text-center text-gray-500">
             <p>© 2024 RL-A2A Protocol. All rights reserved.</p>
             <p class="text-sm mt-2">A conceptual project by Kunj Shah and contributors.</p>
         </div>
     </footer>
-
 
     <!-- Particles.js CDN -->
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // --- Mobile Navigation Toggle ---
+            const navToggle = document.getElementById('nav-toggle');
+            const navMenu = document.getElementById('nav-menu');
+
+            navToggle.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
+                navToggle.classList.toggle('active');
+            });
+
+            // Close menu when clicking on a link
+            document.querySelectorAll('.nav-menu a').forEach(link => {
+                link.addEventListener('click', () => {
+                    navMenu.classList.remove('active');
+                    navToggle.classList.remove('active');
+                });
+            });
+
+            // Close menu when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!navToggle.contains(e.target) && !navMenu.contains(e.target)) {
+                    navMenu.classList.remove('active');
+                    navToggle.classList.remove('active');
+                }
+            });
+
             // --- Particles.js Configuration ---
             particlesJS('particles-js', {
                 "particles": {
-                    "number": { "value": 80, "density": { "enable": true, "value_area": 800 } },
+                    "number": { "value": window.innerWidth > 768 ? 80 : 40, "density": { "enable": true, "value_area": 800 } },
                     "color": { "value": "#ffffff" },
                     "shape": { "type": "circle", "stroke": { "width": 0, "color": "#000000" } },
                     "opacity": { "value": 0.5, "random": false, "anim": { "enable": false } },
@@ -473,7 +610,7 @@
                 "retina_detect": true
             });
 
-            // --- Card Spotlight Effect ---
+            // --- Card Hover Effects ---
             const cards = document.querySelectorAll('.card');
             cards.forEach(card => {
                 card.addEventListener('mousemove', (e) => {
@@ -482,10 +619,6 @@
                     const y = e.clientY - rect.top;
                     card.style.setProperty('--mouse-x', `${x}px`);
                     card.style.setProperty('--mouse-y', `${y}px`);
-                });
-                card.addEventListener('mouseleave', () => {
-                     card.style.setProperty('--mouse-x', `50%`);
-                     card.style.setProperty('--mouse-y', `50%`);
                 });
             });
 
@@ -510,6 +643,20 @@
 
             document.querySelectorAll('.animate-on-scroll').forEach(el => {
                 observer.observe(el);
+            });
+
+            // --- Smooth scrolling for anchor links ---
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
             });
         });
     </script>
