@@ -1,183 +1,183 @@
-# MCP Integration Guide for RL-A2A
+# MCP (Model Context Protocol) Integration Guide
 
-This guide explains how to add Model Context Protocol (MCP) support to your RL-A2A agent communication system.
+## 🚀 **Complete MCP Support Added**
 
-## What is MCP?
+RL-A2A now includes comprehensive MCP (Model Context Protocol) support for seamless AI assistant integration.
 
-Model Context Protocol (MCP) is an open protocol that enables AI assistants to securely connect with external data sources and tools. By adding MCP support to RL-A2A, you can:
+### ✅ **What's Included**
 
-- Expose your agent communication tools to AI assistants
-- Enable natural language interaction with your agent system
-- Integrate with MCP-compatible clients like Claude Desktop, Cline, etc.
-- Create a bridge between conversational AI and your agent infrastructure
+- **🔧 MCP Server** - Full implementation in `rla2a.py`
+- **📋 Configuration** - Ready-to-use `mcp_config.json`
+- **🛠️ Tools** - 5 comprehensive tools for agent management
+- **📚 Resources** - 3 resources for system data access
+- **🔌 Auto-Detection** - Automatic MCP package detection and installation
 
-## Architecture
+### 🛠️ **Available MCP Tools**
 
-```
-MCP Client (Claude, Cline, etc.)
-        ↓ (MCP Protocol)
-MCP Server (mcp_server.py)
-        ↓ (HTTP/WebSocket)
-A2A Server (a2a_server.py)
-        ↓ (WebSocket)
-Agents (agent_a.py, etc.)
-```
+1. **`create_agent`** - Create new AI agents
+   - Parameters: `name`, `role`, `ai_provider`
+   - Example: Create a researcher agent with OpenAI
 
-## Installation Steps
+2. **`list_agents`** - List all active agents
+   - No parameters required
+   - Returns: Agent names, roles, and providers
 
-### 1. Quick Setup (Recommended)
+3. **`send_message`** - Send messages between agents
+   - Parameters: `sender_id`, `receiver_id`, `content`
+   - Enables inter-agent communication
 
+4. **`get_system_status`** - Get comprehensive system status
+   - No parameters required
+   - Returns: Version, agent count, AI providers, features
+
+5. **`generate_ai_response`** - Generate AI responses
+   - Parameters: `prompt`, `provider` (optional)
+   - Supports OpenAI, Anthropic, Google
+
+### 📚 **Available MCP Resources**
+
+1. **`rl-a2a://system/config`** - System configuration
+   - JSON format with all system settings
+
+2. **`rl-a2a://agents/list`** - Detailed agents list
+   - JSON format with agent details and metadata
+
+3. **`rl-a2a://system/logs`** - Recent system logs
+   - Text format with last 50 log entries
+
+### 🚀 **Quick Start**
+
+#### 1. Install MCP Support
 ```bash
-# Clone the repository
-git clone https://github.com/KunjShah01/RL-A2A.git
-cd RL-A2A
-
-# Run the setup script
+# MCP will be auto-detected and installed
 python rla2a.py setup
 
-# Test the installation
-python rla2a.py report
+# Or install manually
+pip install mcp
 ```
 
-### 2. Manual Setup
-
+#### 2. Start MCP Server
 ```bash
-# Install MCP dependencies
-pip install mcp>=1.0.0
-pip install -r requirements.txt
-
-# Make start script executable (Unix/Mac)
-chmod +x start_mcp_server.py
+python rla2a.py mcp
 ```
 
-## Usage
+#### 3. Configure Your AI Assistant
 
-### Starting the Servers
-
-1. **Start A2A Server:**
-   ```bash
-   python a2a_server.py
-   ```
-
-2. **Start MCP Server:**
-   ```bash
-   python rla2a.py mcp
-   ```
-
-### Connecting MCP Clients
-
-Add this configuration to your MCP client:
-
+**For Claude Desktop:**
+Add to your `claude_desktop_config.json`:
 ```json
 {
   "mcpServers": {
-    "rl-a2a": {
+    "rl-a2a-enhanced": {
       "command": "python",
       "args": ["rla2a.py", "mcp"],
-      "env": {
-        "A2A_SERVER_URL": "http://localhost:8000"
-      }
+      "cwd": "/path/to/your/rl-a2a/directory"
     }
   }
 }
 ```
 
-## Available Tools
+**For Other MCP Clients:**
+Use the provided `mcp_config.json` as a reference.
 
-### 1. start_system
-**Description:** Start the complete RL-A2A system
+### 💡 **Usage Examples**
 
-**Parameters:**
-- `agents` (number): Number of demo agents to create (default: 3)
-- `dashboard` (boolean): Whether to start dashboard (default: true)
+Once connected, you can ask your AI assistant:
 
-**Example Usage:**
-"Start the RL-A2A system with 5 agents"
-
-### 2. create_agent
-**Description:** Create a new agent in the system
-
-**Parameters:**
-- `agent_id` (string): Unique identifier for the agent
-
-**Example Usage:**
-"Create a new agent called 'explorer'"
-
-## Available Resources
-
-### 1. rla2a://system
-Complete RL-A2A system information and status
-
-## Example Interactions
-
-Once your MCP client is connected, you can use natural language commands:
-
-1. **"Start the RL-A2A system with 5 agents"**
-   - Uses `start_system` tool
-   - Returns system configuration and commands
-
-2. **"Show me information about the system"**
-   - Reads `rla2a://system` resource
-   - Returns current system status
-
-3. **"Create a new agent called scout"**
-   - Uses `create_agent` tool
-   - Configures new agent for creation
-
-## Troubleshooting
-
-### Common Issues
-
-1. **"MCP module not found"**
-   ```bash
-   pip install mcp>=1.0.0
-   ```
-
-2. **"A2A server connection failed"**
-   - Ensure A2A server is running on correct port
-   - Check firewall settings
-   - Verify server URL in configuration
-
-3. **"Permission denied on start script"**
-   ```bash
-   chmod +x start_mcp_server.py
-   ```
-
-4. **"Invalid MCP configuration"**
-   - Verify JSON syntax in configuration
-   - Check file paths in configuration
-   - Ensure Python executable is in PATH
-
-### Debug Mode
-
-Run with debug logging:
-```bash
-export MCP_DEBUG=1
-python rla2a.py mcp
+```
+"Create a researcher agent named Alice using OpenAI"
+"List all active agents in the system"
+"Get the current system status"
+"Generate an AI response about machine learning"
+"Show me the system configuration"
 ```
 
-### Testing
+### 🔧 **Advanced Configuration**
 
-Run the test suite to verify installation:
+#### Environment Variables
 ```bash
-python rla2a.py setup
-python rla2a.py report
+# Set AI provider API keys
+export OPENAI_API_KEY="your_key_here"
+export ANTHROPIC_API_KEY="your_key_here"
+export GOOGLE_API_KEY="your_key_here"
+
+# Configure server settings
+export A2A_HOST="localhost"
+export A2A_PORT="8000"
 ```
 
-## Advanced Configuration
+#### Custom MCP Configuration
+Edit `mcp_config.json` to customize:
+- Tool descriptions
+- Resource URIs
+- Server parameters
 
-### Custom Server URL
-Set environment variable:
+### 🐛 **Troubleshooting**
+
+#### MCP Not Available
 ```bash
-export A2A_SERVER_URL="http://your-server:8000"
+# Install MCP package
+pip install mcp
+
+# Verify installation
+python -c "import mcp; print('MCP installed successfully')"
 ```
 
-### Multiple Environments
-Create environment-specific configs:
-```json
-{
-  "mcpServers": {
-    "rl-a2a-dev": {
+#### Connection Issues
+1. Ensure `rla2a.py` is in the correct directory
+2. Check that Python can find the script
+3. Verify MCP server is running: `python rla2a.py mcp`
+
+#### Tool Errors
+- Check system logs: `python rla2a.py info`
+- Verify AI provider API keys are set
+- Ensure required dependencies are installed
+
+### 📋 **Feature Status**
+
+- ✅ **MCP Server** - Fully implemented
+- ✅ **Tools** - 5 comprehensive tools available
+- ✅ **Resources** - 3 system resources accessible
+- ✅ **Error Handling** - Comprehensive error management
+- ✅ **Auto-Detection** - Automatic MCP package detection
+- ✅ **Configuration** - Ready-to-use config files
+
+### 🔗 **Integration Examples**
+
+#### Claude Desktop Integration
+1. Add RL-A2A to Claude Desktop config
+2. Restart Claude Desktop
+3. Start using RL-A2A tools in conversations
+
+#### Custom MCP Client
+```python
+# Example MCP client integration
+import asyncio
+from mcp.client import Client
+
+async def use_rl_a2a():
+    client = Client()
+    await client.connect("python", ["rla2a.py", "mcp"])
+    
+    # List available tools
+    tools = await client.list_tools()
+    print(f"Available tools: {[t.name for t in tools]}")
+    
+    # Create an agent
+    result = await client.call_tool("create_agent", {
+        "name": "TestAgent",
+        "role": "researcher"
+    })
+    print(result)
+
+asyncio.run(use_rl_a2a())
+```
+
+---
+
+**🎉 MCP support is now fully integrated into RL-A2A!**
+
+Start the MCP server with `python rla2a.py mcp` and connect your AI assistant for seamless agent management and communication.
       "command": "python",
       "args": ["rla2a.py", "mcp"],
       "env": {
