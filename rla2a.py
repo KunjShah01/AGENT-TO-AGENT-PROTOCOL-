@@ -1423,10 +1423,10 @@ async def main():
             print(f"Version: {CONFIG['VERSION']}")
             print(f"Security: {'Enhanced' if SECURITY_AVAILABLE else 'Basic'}")
             print(f"AI Providers:")
-            print(f"  OpenAI: {'✅' if OPENAI_AVAILABLE else '❌'}")
-            print(f"  Anthropic: {'✅' if ANTHROPIC_AVAILABLE else '❌'}")
-            print(f"  Google: {'✅' if GOOGLE_AVAILABLE else '❌'}")
-            print(f"MCP: {'✅' if MCP_AVAILABLE else '❌'}")
+            print(f"  OpenAI: {'YES' if OPENAI_AVAILABLE else 'NO'}")
+            print(f"  Anthropic: {'YES' if ANTHROPIC_AVAILABLE else 'NO'}")
+            print(f"  Google: {'YES' if GOOGLE_AVAILABLE else 'NO'}")
+            print(f"MCP: {'YES' if MCP_AVAILABLE else 'NO'}")
             print(f"Server: {CONFIG['SERVER_HOST']}:{CONFIG['SERVER_PORT']}")
     
     except KeyboardInterrupt:
