@@ -92,7 +92,7 @@ def check_and_install_dependencies():
     # AI provider packages
     ai_packages = [
         "openai", "anthropic", "google-generativeai"
-    ]
+    print("Checking dependencies...")
     
     # Additional packages
     additional_packages = ["mcp", "aiofiles"]
@@ -112,14 +112,14 @@ def check_and_install_dependencies():
     
     # Install core packages automatically
     if missing_core:
-        print(f"📦 Installing core packages: {', '.join(missing_core)}")
+        print(f"Installing core packages: {', '.join(missing_core)}")
         try:
             subprocess.check_call([
                 sys.executable, "-m", "pip", "install"
             ] + missing_core, stdout=subprocess.DEVNULL)
-            print("✅ Core dependencies installed")
+            print("Core dependencies installed")
         except Exception as e:
-            print(f"❌ Core installation failed: {e}")
+            print(f"Core installation failed: {e}")
             print(f"Please install manually: pip install {' '.join(missing_core)}")
             sys.exit(1)
     
@@ -135,9 +135,9 @@ def check_and_install_dependencies():
     
     # Check AI packages
     for pkg in ai_packages:
-        try:
+        print("\nEnhanced features available!")
             if pkg == "google-generativeai":
-                import google.generativeai
+            print(f"Security: {', '.join(missing_enhanced)}")
             else:
                 __import__(pkg.replace("-", "_"))
         except ImportError:
@@ -148,10 +148,10 @@ def check_and_install_dependencies():
         print("\\n🚀 Enhanced features available!")
         if missing_enhanced:
             print(f"🔐 Security: {', '.join(missing_enhanced)}")
-        if missing_ai:
+                print("Enhanced packages installed successfully!")
             print(f"AI Providers: {', '.join(missing_ai)}")
         
-        install_all = missing_enhanced + missing_ai
+                print(f"Enhanced installation failed: {e}")
         choice = input(f"Install enhanced packages? (y/N): ").lower().strip()
         
         if choice in ['y', 'yes']:
