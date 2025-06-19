@@ -77,11 +77,11 @@ except ImportError:
 def check_and_install_dependencies():
     """Smart dependency management with enhanced features"""
     
-    # Core required packages
-    core_required = [
-        "fastapi", "uvicorn", "websockets", "msgpack", "numpy", "pydantic", 
-        "requests", "matplotlib", "plotly", "streamlit", "pandas"
+    # Enhanced packages for security and features
+    enhanced_packages = [
+        "python-dotenv", "PyJWT", "bcrypt", "bleach", "passlib"
     ]
+
     # AI provider packages
     ai_packages = [
         "openai", "anthropic", "google-generativeai"
@@ -127,24 +127,24 @@ def check_and_install_dependencies():
             else:
                 __import__(pkg.replace("-", "_"))
         except ImportError:
-            missing_enhanced.append(pkg)
-    
-    # Check AI packages
-    for pkg in ai_packages:
+    # Check MCP packages
+    for pkg in mcp_packages:
         try:
-            if pkg == "google-generativeai":
-                import google.generativeai
-            else:
-                __import__(pkg.replace("-", "_"))
+            __import__(pkg.replace("-", "_"))
         except ImportError:
-            missing_ai.append(pkg)
-    
+            missing_mcp.append(pkg)
+
     # Offer enhanced packages installation
-    if missing_enhanced or missing_ai:
-        print("\\n[LAUNCH] Enhanced features available!")
+    if missing_enhanced or missing_ai or missing_mcp:
+        print("\n[LAUNCH] Enhanced features available!")
         if missing_enhanced:
             print(f"[SECURITY] Security: {', '.join(missing_enhanced)}")
         if missing_ai:
+            print(f"[AI] AI Providers: {', '.join(missing_ai)}")
+        if missing_mcp:
+            print(f"[MCP] MCP Support: {', '.join(missing_mcp)}")
+
+        install_all = missing_enhanced + missing_ai + missing_mcp
             print(f"[AI] AI Providers: {', '.join(missing_ai)}")
         
         install_all = missing_enhanced + missing_ai
