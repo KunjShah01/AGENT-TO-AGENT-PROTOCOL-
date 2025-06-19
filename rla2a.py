@@ -82,20 +82,20 @@ def check_and_install_dependencies():
         "fastapi", "uvicorn", "websockets", "msgpack", "numpy", "pydantic", 
         "requests", "matplotlib", "plotly", "streamlit", "pandas"
     ]
-    
-    # Enhanced packages for security and features
-    enhanced_packages = [
-        "python-dotenv", "PyJWT", "bcrypt", "bleach", "passlib"
-    ]
-    
     # AI provider packages
     ai_packages = [
         "openai", "anthropic", "google-generativeai"
     ]
     
+    # MCP packages
+    mcp_packages = [
+        "mcp", "aiofiles"
+    ]
+
     missing_core = []
     missing_enhanced = []
     missing_ai = []
+    missing_mcp = []
     
     print("[CHECK] Checking dependencies...")
     
