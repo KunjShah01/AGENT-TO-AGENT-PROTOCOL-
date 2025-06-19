@@ -1380,13 +1380,13 @@ async def main():
         print("=" * 60)
         print("Combined Enhanced Agent-to-Agent Communication System")
         print()
-        print("🚀 Quick Commands:")
+        print("Quick Commands:")
         print("  python rla2a.py setup              # Setup environment")
         print("  python rla2a.py server             # Start server")
         print("  python rla2a.py dashboard          # Start dashboard")
         print("  python rla2a.py report             # Generate report")
         print()
-        print("📚 Documentation: python rla2a.py --help")
+        print("Documentation: python rla2a.py --help")
         return
     
     try:
