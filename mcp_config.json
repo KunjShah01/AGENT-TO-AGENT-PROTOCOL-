@@ -1,0 +1,65 @@
+{
+  "mcpServers": {
+    "rl-a2a-enhanced": {
+      "command": "python",
+      "args": ["rla2a.py", "mcp"],
+      "env": {},
+      "description": "RL-A2A Enhanced Agent-to-Agent Communication System with MCP support",
+      "tools": [
+        {
+          "name": "create_agent",
+          "description": "Create a new AI agent with specified role and capabilities",
+          "parameters": {
+            "name": "Agent name",
+            "role": "Agent role (researcher, analyst, coordinator, etc.)",
+            "ai_provider": "AI provider (openai, anthropic, google)"
+          }
+        },
+        {
+          "name": "list_agents",
+          "description": "List all active agents in the system",
+          "parameters": {}
+        },
+        {
+          "name": "send_message",
+          "description": "Send a message between agents",
+          "parameters": {
+            "sender_id": "Sender agent ID",
+            "receiver_id": "Receiver agent ID", 
+            "content": "Message content"
+          }
+        },
+        {
+          "name": "get_system_status",
+          "description": "Get comprehensive system status and metrics",
+          "parameters": {}
+        },
+        {
+          "name": "generate_ai_response",
+          "description": "Generate AI response using specified provider",
+          "parameters": {
+            "prompt": "Prompt for AI generation",
+            "provider": "AI provider (openai, anthropic, google)"
+          }
+        }
+      ],
+      "resources": [
+        {
+          "uri": "rl-a2a://system/config",
+          "name": "System Configuration",
+          "description": "Current system configuration and settings"
+        },
+        {
+          "uri": "rl-a2a://agents/list", 
+          "name": "Agents List",
+          "description": "List of all active agents with details"
+        },
+        {
+          "uri": "rl-a2a://system/logs",
+          "name": "System Logs",
+          "description": "Recent system logs and events"
+        }
+      ]
+    }
+  }
+}
