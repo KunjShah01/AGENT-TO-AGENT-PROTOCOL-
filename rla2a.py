@@ -1100,69 +1100,69 @@ def generate_report():
     print("[OK] Report generated: rla2a_report.html")
 
 async def run_mcp_server():
-    """Run MCP server for AI assistants"""
+    """Run comprehensive MCP server for AI assistants"""
     
     if not MCP_AVAILABLE:
         print("[FAIL] MCP not available. Install with: pip install mcp")
         return
     
-    print("[LAUNCH] Starting MCP server...")
-    print("[INFO] MCP server functionality would be implemented here")
-    print("[OK] MCP server placeholder running")
-
-# =============================================================================
-# MAIN EXECUTION
-# =============================================================================
-
-async def main():
-    """Main execution function"""
+    print("[LAUNCH] Starting comprehensive MCP server...")
     
-    parser = argparse.ArgumentParser(
-        description="RL-A2A Combined Enhanced System - Complete Version",
-        formatter_class=argparse.RawDescriptionHelpFormatter,
-        epilog="""
-Examples:
-  python rla2a.py setup              # Setup environment
-  python rla2a.py server             # Start server
-  python rla2a.py dashboard          # Start dashboard
-  python rla2a.py report             # Generate report
-  python rla2a.py info               # System information
-        """
-    )
-    
-    subparsers = parser.add_subparsers(dest="command", help="Available commands")
-    
-    # Setup command
-    subparsers.add_parser("setup", help="Setup environment and dependencies")
-    
-    # Server command
-    server_parser = subparsers.add_parser("server", help="Start A2A server")
-    server_parser.add_argument("--host", default="localhost", help="Server host")
-    server_parser.add_argument("--port", type=int, default=8000, help="Server port")
-    server_parser.add_argument("--demo-agents", type=int, default=0, help="Number of demo agents")
-    
-    # Dashboard command
-    subparsers.add_parser("dashboard", help="Start dashboard")
-    
-    # Report command
-    subparsers.add_parser("report", help="Generate HTML report")
-    
-    # MCP command
-    subparsers.add_parser("mcp", help="Start MCP server")
-    
-    # Info command
-    subparsers.add_parser("info", help="System information")
-    
-    args = parser.parse_args()
-    
-    if not args.command:
-        print(f"[AI] {CONFIG['SYSTEM_NAME']} v{CONFIG['VERSION']}")
-        print("=" * 60)
-        print("Combined Enhanced Agent-to-Agent Communication System")
-        print("Windows Compatible - All Errors Fixed")
-        print()
-        print("[LAUNCH] Quick Commands:")
-        print("  python rla2a.py setup              # Setup environment")
+    try:
+        from mcp.server import Server
+        from mcp.types import Tool, Resource, TextContent
+        import mcp.types as types
+        
+        # Create MCP server
+        server = Server("rl-a2a-enhanced")
+        a2a_system = A2ASystem()
+        
+        # MCP Tools
+        @server.list_tools()
+        async def handle_list_tools() -> list[Tool]:
+            return [
+                Tool(
+                    name="create_agent",
+                    description="Create a new AI agent",
+                    inputSchema={"type": "object", "properties": {"name": {"type": "string"}, "role": {"type": "string"}}, "required": ["name", "role"]}
+                ),
+                Tool(
+                    name="list_agents",
+                    description="List all active agents",
+                    inputSchema={"type": "object", "properties": {}}
+                ),
+                Tool(
+                    name="get_system_status",
+                    description="Get system status",
+                    inputSchema={"type": "object", "properties": {}}
+                )
+            ]
+        
+        # Tool handlers
+        @server.call_tool()
+        async def handle_call_tool(name: str, arguments: dict) -> list[types.TextContent]:
+            try:
+                if name == "create_agent":
+                    agent_id = a2a_system.create_agent(arguments["name"], arguments["role"])
+                    return [TextContent(type="text", text=f"[OK] Agent created: {agent_id}")]
+                elif name == "list_agents":
+                    agents = [f"{a.name} ({a.role})" for a in a2a_system.agents.values()]
+                    return [TextContent(type="text", text=f"[AI] Agents: {', '.join(agents) if agents else 'None'}")]
+                elif name == "get_system_status":
+                    status = f"[AI] RL-A2A v{CONFIG['VERSION']} - Agents: {len(a2a_system.agents)} - AI: {'YES' if CONFIG['ENABLE_AI'] else 'NO'}"
+                    return [TextContent(type="text", text=status)]
+                else:
+                    return [TextContent(type="text", text=f"[FAIL] Unknown tool: {name}")]
+            except Exception as e:
+                return [TextContent(type="text", text=f"[FAIL] Error: {e}")]
+        
+        print("[OK] MCP server ready with agent management tools")
+        print("[INFO] Available tools: create_agent, list_agents, get_system_status")
+        await server.run()
+        
+    except Exception as e:
+        print(f"[FAIL] MCP server error: {e}")
+        print("[INFO] Install MCP with: pip install mcp")
         print("  python rla2a.py server             # Start server")
         print("  python rla2a.py dashboard          # Start dashboard")
         print("  python rla2a.py report             # Generate report")
