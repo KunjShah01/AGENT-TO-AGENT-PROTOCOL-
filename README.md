@@ -39,28 +39,28 @@ RL-A2A Enhanced democratizes multi-agent system development by providing a compr
 
 
 
-## ✨ Enhanced Features
+- **[OK] Auto Dependencies** - Smart package installation
+- **[OK] Windows Compatible** - UTF-8 encoding, ASCII output
+- **[OK] Production Ready** - Comprehensive error handling
+- **[OK] MCP Support** - Model Context Protocol for AI assistants
 
-- 🤖 **Multi-Agent Communication** - Secure WebSocket-based real-time coordination
-- 🧠 **Multi-AI Integration** - OpenAI, Claude & Gemini powered intelligent decision making
-- 🎨 **Enhanced 3D Visualization** - Interactive Plotly dashboards with security monitoring
-- 📈 **Advanced Reinforcement Learning** - Q-learning with adaptive feedback and validation
-- 🔒 **Enterprise Security** - JWT authentication, rate limiting, data validation
-- 🔌 **Enhanced MCP Support** - Secure Model Context Protocol for AI assistants
-- ⚡ **Production Architecture** - Dual approach with Docker support and auto-configuration
-- 🗺️ **Environment Management** - Comprehensive .env configuration with security defaults
+### 🤖 **MCP (Model Context Protocol) Support**
 
-## 🚀 Enhanced Quick Start
+**🎉 NEW: Complete MCP integration for AI assistants!**
 
-### 1. Enhanced Installation
+- **🔧 5 MCP Tools** - Agent creation, messaging, status, AI generation
+- **📚 3 MCP Resources** - System config, agent lists, logs
+- **🔌 Auto-Detection** - Automatic MCP package installation
+- **📋 Ready Config** - `mcp_config.json` for instant setup
 
 ```bash
-# Clone the repository
-git clone https://github.com/KunjShah01/RL-A2A.git
-cd RL-A2A
+# Start MCP server for AI assistant integration
+python rla2a.py mcp
+```
 
-# Switch to enhanced branch (for latest security features)
-git checkout security-fixes-and-enhancements
+**[See MCP_GUIDE.md for complete integration instructions]**
+
+### 📋 **Available Commands**
 
 # Install enhanced dependencies with security packages
 pip install -r requirements.txt
