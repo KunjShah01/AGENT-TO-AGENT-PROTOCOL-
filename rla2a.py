@@ -1,5 +1,5 @@
+# -*- coding: utf-8 -*-
 """
-RL-A2A COMBINED: Complete Enhanced Agent-to-Agent Communication System
 =======================================================================
 
 COMBINED VERSION: This file merges the original rla2a.py with rla2a_enhanced.py
@@ -149,7 +149,7 @@ def check_and_install_dependencies():
         if missing_enhanced:
             print(f"🔐 Security: {', '.join(missing_enhanced)}")
         if missing_ai:
-            print(f"🤖 AI Providers: {', '.join(missing_ai)}")
+            print(f"AI Providers: {', '.join(missing_ai)}")
         
         install_all = missing_enhanced + missing_ai
         choice = input(f"Install enhanced packages? (y/N): ").lower().strip()
@@ -969,7 +969,7 @@ class A2ASystem:
     def create_demo_agents(self, count: int):
         """Create demo agents for testing"""
         
-        logger.info(f"🤖 Creating {count} demo agents...")
+        logger.info(f"Creating {count} demo agents...")
         
         providers = list(self.ai_manager.providers.keys()) or ["openai"]
         emotions = ["neutral", "happy", "excited"]
@@ -1015,7 +1015,7 @@ class A2ASystem:
         logger.info(f"🚀 Starting {CONFIG['SYSTEM_NAME']} v{CONFIG['VERSION']}")
         logger.info(f"🔧 Server: {CONFIG['SERVER_HOST']}:{CONFIG['SERVER_PORT']}")
         logger.info(f"🔒 Security: {'Enhanced' if SECURITY_AVAILABLE else 'Basic'}")
-        logger.info(f"🤖 AI Providers: {list(self.ai_manager.providers.keys())}")
+        logger.info(f"AI Providers: {list(self.ai_manager.providers.keys())}")
         
         try:
             config = uvicorn.Config(
@@ -1054,7 +1054,7 @@ st.set_page_config(
     layout="wide"
 )
 
-st.title("🤖 RL-A2A Combined Enhanced Dashboard")
+st.title("RL-A2A Combined Enhanced Dashboard")
 st.markdown("### Real-time Agent Monitoring & Control")
 
 # Server connection
@@ -1131,13 +1131,13 @@ if agents_data["agents"]:
         st.plotly_chart(fig_emotions, use_container_width=True)
     
     with col2:
-        st.subheader("🤖 AI Provider Distribution")
+        st.subheader("AI Provider Distribution")
         provider_counts = df["provider"].value_counts()
         fig_providers = px.bar(x=provider_counts.index, y=provider_counts.values)
         st.plotly_chart(fig_providers, use_container_width=True)
 
 # AI Provider status
-st.subheader("🤖 AI Provider Status")
+st.subheader("AI Provider Status")
 ai_providers = stats_data.get("ai_providers", {{}})
 for provider, stats in ai_providers.items():
     col1, col2, col3 = st.columns(3)
@@ -1275,7 +1275,7 @@ def generate_report():
 </head>
 <body>
     <div class="header">
-        <h1>🤖 RL-A2A Combined System Report</h1>
+        <h1>RL-A2A Combined System Report</h1>
         <h2>{CONFIG['SYSTEM_NAME']} v{CONFIG['VERSION']}</h2>
         <p>Generated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}</p>
     </div>
@@ -1317,7 +1317,7 @@ def generate_report():
     </div>
 
     <div class="header">
-        <p><strong>🤖 Ready for Multi-Agent Intelligence! 🚀</strong></p>
+        <p><strong>Ready for Multi-Agent Intelligence!</strong></p>
     </div>
 </body>
 </html>
@@ -1376,7 +1376,7 @@ async def main():
     args = parser.parse_args()
     
     if not args.command:
-        print(f"🤖 {CONFIG['SYSTEM_NAME']} v{CONFIG['VERSION']}")
+        print(f"RL-A2A {CONFIG['SYSTEM_NAME']} v{CONFIG['VERSION']}")
         print("=" * 60)
         print("Combined Enhanced Agent-to-Agent Communication System")
         print()
@@ -1419,7 +1419,7 @@ async def main():
             await run_mcp_server()
         
         elif args.command == "info":
-            print(f"🤖 {CONFIG['SYSTEM_NAME']}")
+            print(f"RL-A2A {CONFIG['SYSTEM_NAME']}")
             print(f"Version: {CONFIG['VERSION']}")
             print(f"Security: {'Enhanced' if SECURITY_AVAILABLE else 'Basic'}")
             print(f"AI Providers:")
