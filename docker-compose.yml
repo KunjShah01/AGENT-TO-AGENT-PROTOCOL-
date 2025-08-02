@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  rla2a-server:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - A2A_HOST=0.0.0.0
+      - A2A_PORT=8000
+    env_file:
+      - .env
+    volumes:
+      - ./logs:/app/logs
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  rla2a-dashboard:
+    build: .
+    command: ["python", "rla2a.py", "dashboard"]
+    ports:
+      - "8501:8501"
+    environment:
+      - DASHBOARD_PORT=8501
+    env_file:
+      - .env
+    depends_on:
+      - rla2a-server
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    restart: unless-stopped
+
+volumes:
+  redis_data:
