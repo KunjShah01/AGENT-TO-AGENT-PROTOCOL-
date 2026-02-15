@@ -17,6 +17,15 @@ class A2AMethod(str, Enum):
     TASKS_SEND = "tasks/send"
     TASKS_STATUS = "tasks/status"
     TASKS_CANCEL = "tasks/cancel"
+    TASKS_SUBMIT = "tasks/submit"
+    TASKS_GET = "tasks/get"
+    TASKS_SUBSCRIBE = "tasks/subscribe"
+    MESSAGES_SEND = "messages/send"
+    MESSAGES_HISTORY = "messages/history"
+    AGENTS_LIST = "agents/list"
+    AGENTS_DISCOVER = "agents/discover"
+    AGENTS_HEALTH = "agents/health"
+    AGENTS_CAPABILITIES = "agents/capabilities"
 
 
 class TaskStatus(str, Enum):
@@ -35,16 +44,20 @@ class A2AHandler:
     Implements Agent-to-Agent protocol methods using JSON-RPC 2.0
     """
     
-    def __init__(self, message_router=None, task_store=None):
+    def __init__(self, message_router=None, task_store=None, agent_registry=None, message_store=None):
         """
         Initialize A2A handler
         
         Args:
             message_router: Message router for sending messages
             task_store: Task store for tracking tasks
+            agent_registry: Agent registry for agent operations
+            message_store: Message store for message history
         """
         self.message_router = message_router
         self.task_store = task_store or {}
+        self.agent_registry = agent_registry
+        self.message_store = message_store or []
         self._logger = logging.getLogger(__name__)
         self.jsonrpc_handler = JSONRPCHandler()
         
@@ -52,6 +65,15 @@ class A2AHandler:
         self.jsonrpc_handler.register_method(A2AMethod.TASKS_SEND, self._handle_tasks_send)
         self.jsonrpc_handler.register_method(A2AMethod.TASKS_STATUS, self._handle_tasks_status)
         self.jsonrpc_handler.register_method(A2AMethod.TASKS_CANCEL, self._handle_tasks_cancel)
+        self.jsonrpc_handler.register_method(A2AMethod.TASKS_SUBMIT, self._handle_tasks_submit)
+        self.jsonrpc_handler.register_method(A2AMethod.TASKS_GET, self._handle_tasks_get)
+        self.jsonrpc_handler.register_method(A2AMethod.TASKS_SUBSCRIBE, self._handle_tasks_subscribe)
+        self.jsonrpc_handler.register_method(A2AMethod.MESSAGES_SEND, self._handle_messages_send)
+        self.jsonrpc_handler.register_method(A2AMethod.MESSAGES_HISTORY, self._handle_messages_history)
+        self.jsonrpc_handler.register_method(A2AMethod.AGENTS_LIST, self._handle_agents_list)
+        self.jsonrpc_handler.register_method(A2AMethod.AGENTS_DISCOVER, self._handle_agents_discover)
+        self.jsonrpc_handler.register_method(A2AMethod.AGENTS_HEALTH, self._handle_agents_health)
+        self.jsonrpc_handler.register_method(A2AMethod.AGENTS_CAPABILITIES, self._handle_agents_capabilities)
     
     async def _handle_tasks_send(
         self,
